@@ -22,7 +22,7 @@ public class Bookshelf {
 
       <put rep. invar. comment here>
       @param height
-      the height for each book must be > 0
+      1. the height for each book must be > 0
 
    */
    
@@ -149,13 +149,9 @@ public class Bookshelf {
     * (Note: this is an accessor; it does not change the bookshelf.)
     */
    public boolean isSorted() {
-      if (this.shelf.size() > 1) {
-         int prev = this.shelf.get(0);
-         for (int i = 1; i < this.shelf.size(); i++) {
-            if (this.shelf.get(i) < prev) {
-               return false;
-            }
-            prev = this.shelf.get(i);
+      for (int i = 0; i < this.shelf.size(); i++) {
+         if (i > 0 && this.shelf.get(i) < this.shelf.get(i - 1)) {
+            return false;
          }
       }
       assert isValidBookshelf();

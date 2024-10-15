@@ -20,9 +20,9 @@ public class BookshelfKeeper {
 
       <put rep. invar. comment here>
       @param height
-      the height for each book must be > 0
+      1. the height for each book must be > 0
       
-      each book has to be sortedt
+      2. each book has to be sorted in non-decreasing order
    */
    
    // <add instance variables here>
@@ -88,7 +88,7 @@ public class BookshelfKeeper {
           // Temporarily remove books until you reach the right position
           int j = 0;
           while (j < position) {
-            int book = this.shelf.removeLast();
+            int book = this.shelf.removeFront();
             tempArray.add(book);
             curOperations++;
             j++;
@@ -122,6 +122,14 @@ public class BookshelfKeeper {
       int middlePos = this.shelf.size() / 2;
       ArrayList<Integer> tempArray = new ArrayList<>();
       curOperations = 0;
+
+      if (this.shelf.size() == 0) {
+         this.shelf.addFront(height);
+         curOperations++;
+         this.totalOperations += curOperations;
+         assert isValidBookshelfKeeper();
+         return curOperations;
+      }
 
       if (height >= this.shelf.getHeight(middlePos)) {
          // Temporarily remove books until you reach the right position
@@ -193,7 +201,7 @@ public class BookshelfKeeper {
    public String toString() {
       StringBuilder shelfString = new StringBuilder();
       if (this.shelf.size() == 0) {
-         return "[]";
+         return "[]" + " " + this.curOperations + " " + this.totalOperations;
       }
       shelfString.append("[");
       if (this.shelf.size() > 1) {
@@ -223,12 +231,11 @@ public class BookshelfKeeper {
          assert height > 0;
          return true;
       }
-      int prevHeight = this.shelf.getHeight(0);
-      for (int i = 1; i < this.shelf.size(); i++) {
-         int height = this.shelf.getHeight(i);
-         assert height > prevHeight;
-         assert height > 0;
-         prevHeight = height;
+      for (int i = 0; i < this.shelf.size() - 1; i++) {
+         if (i > 0) {
+            assert this.shelf.getHeight(i) >= this.shelf.getHeight(i - 1);
+         }
+         assert this.shelf.getHeight(i) > 0;
       }
       return true;
    }

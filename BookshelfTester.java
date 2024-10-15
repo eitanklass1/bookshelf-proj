@@ -50,7 +50,5 @@ public class BookshelfTester {
     books4.add(-6);
     Bookshelf bookshelf4 = new Bookshelf(books4);
     System.out.println(bookshelf4.toString());
-    // books4.add(6);
-    // System.out.println(bookshelf4.toString());
   }
 }
